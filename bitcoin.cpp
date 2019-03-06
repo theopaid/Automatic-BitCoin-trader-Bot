@@ -6,11 +6,22 @@ using namespace std;
 
 void readInput(char const *_argv[])
 {
-    int bitCoinValue = atoi(_argv[6]);
-    int senderHashtableNumOfEntries = atoi(_argv[8]);
-    int receiverHashtableNumOfEntries = atoi(_argv[10]);
-    int bucketSize = atoi(_argv[12]);
-    const char *_bitCoinBalancesFile = _argv[2], *_transactionsFile = _argv[4];
+    string _bitCoinBalancesFile, _transactionsFile;
+    int bitCoinValue, senderHashtableNumOfEntries, receiverHashtableNumOfEntries, bucketSize;
+    for(int i = 1; i < 12; i += 2) {
+        if(!string(_argv[i]).compare("-a"))
+            _bitCoinBalancesFile = _argv[i+1];
+        else if(!string(_argv[i]).compare("-t"))
+            _transactionsFile = _argv[i+1];
+        else if(!string(_argv[i]).compare("-v"))
+            bitCoinValue = atoi(_argv[i+1]);
+        else if(!string(_argv[i]).compare("-h1"))
+            senderHashtableNumOfEntries = atoi(_argv[i+1]);
+        else if(!string(_argv[i]).compare("-h2"))
+            receiverHashtableNumOfEntries = atoi(_argv[i+1]);
+        else if(!string(_argv[i]).compare("-b"))
+            bucketSize = atoi(_argv[i+1]);
+    }
     ifstream bitCoinBalancesFile, transactionsFile;
     bitCoinBalancesFile.open(_bitCoinBalancesFile);
     if (!bitCoinBalancesFile)
