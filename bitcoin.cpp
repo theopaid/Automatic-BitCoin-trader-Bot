@@ -4,6 +4,53 @@
 
 using namespace std;
 
+struct NodeForBalances
+{
+    string Name;
+    int* BCIDs;
+    NodeForBalances *next;
+};
+
+struct BitNode
+{
+    string BitCoinID;
+    float percentage;
+    BitNode *next;
+};
+
+class BitCoinIDsList
+{
+    private:
+        BitNode *listHead;
+
+    public:
+        BitCoinIDsList()
+        {
+            listHead = NULL;
+        }
+
+        void pushback()
+};
+
+class WalletIDsList
+{
+    private:
+        NodeForBalances *listHead;
+
+    public:
+        WalletIDsList()
+        {
+            listHead = NULL;
+        }
+
+        void pushback(string _Name, )
+        {
+
+        }
+};
+
+
+
 void readInput(char const *_argv[])
 {
     string _bitCoinBalancesFile, _transactionsFile;
