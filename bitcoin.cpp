@@ -4,12 +4,7 @@
 
 using namespace std;
 
-struct NodeForBalances
-{
-    string Name;
-    int* BCIDs;
-    NodeForBalances *next;
-};
+
 
 struct BitNode
 {
@@ -22,30 +17,110 @@ class BitCoinIDsList
 {
     private:
         BitNode *listHead;
+        BitNode *listTail;
 
     public:
         BitCoinIDsList()
         {
             listHead = NULL;
+            listTail = NULL;
         }
 
-        void pushback()
+        void pushback(string _BitCoinID)
+        {
+            BitNode *temp = new BitNode;
+            temp->BitCoinID = _BitCoinID;
+            temp->percentage = 1.0;
+            temp->next = NULL;
+            if(listHead == NULL)
+            {
+                listHead = temp;
+                listTail = temp;
+                temp = NULL;
+            }
+            else
+            {
+                listTail->next = temp;
+                listTail = temp;
+            }
+        }
+
+        void changePCTofBC(string _BitCoinID, float newpct)
+        {
+            BitNode *current = listHead;
+            while(current != NULL)
+            {
+                if(current->BitCoinID == _BitCoinID)
+                {
+                    current->percentage = newpct;
+                    return;
+                }
+                current = current->next;
+            }
+        }
+
+        ~BitCoinIDsList()
+        {
+            BitNode *current = listHead;
+            BitNode *next;
+            while(current != NULL)
+            {
+                next = current->next;
+                delete current;
+                current = next;
+            }
+        }
+};
+
+struct NodeForBalances
+{
+    string UserID;
+    BitCoinIDsList *BitCoinsOfUser;
+    NodeForBalances *next;
 };
 
 class WalletIDsList
 {
     private:
         NodeForBalances *listHead;
+        NodeForBalances *listTail;
 
     public:
         WalletIDsList()
         {
             listHead = NULL;
+            listTail = NULL;
         }
 
-        void pushback(string _Name, )
+        void pushback(string _UserID)
         {
+            NodeForBalances *temp = new NodeForBalances();
+            temp->UserID = _UserID;
+            temp->BitCoinsOfUser = new BitCoinIDsList();
+            temp->next = NULL;
+            if(listHead == NULL)
+            {
+                listHead = temp;
+                listTail = temp;
+                temp = NULL;
+            }
+            else
+            {
+                listTail->next = temp;
+                listTail = temp;
+            }
+        }
 
+        ~WalletIDsList()
+        {
+            NodeForBalances *current = listHead;
+            NodeForBalances *next;
+            while(current != NULL)
+            {
+                next = current->next;
+                delete current;
+                current = next;
+            }
         }
 };
 
