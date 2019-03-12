@@ -124,7 +124,49 @@ class WalletIDsList
         }
 };
 
+struct HashNode
+{
+    //int key;
+    WalletIDsList *value;
+};
 
+class HashMap
+{
+    private:
+        HashNode *Wallet;
+        int capacity;
+
+    public:
+        HashMap()
+        {
+            capacity = 20;
+            Wallet = new HashNode[capacity];
+            for(int i = 0; i < capacity; i++)
+                Wallet[i].value = NULL;
+        }
+
+        int HashFunction(string name, int capacity)
+        {
+            int ascii_sum = 0;
+            for(int i = 0; i < name.length(); i++)
+            {
+                char current = name.at(i);
+                ascii_sum += int(current);
+            }
+            return ascii_sum % capacity;
+        }
+
+        void InsertUser(string line)
+        {
+            int index = HashFunction(string name);
+            
+        }
+};
+
+void StoreWalletInfo(ifstream _bitCoinBalancesFile)
+{
+
+}
 
 void readInput(char const *_argv[])
 {
